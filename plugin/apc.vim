@@ -120,9 +120,6 @@ function! s:apc_enable()
 	if get(g:, 'apc_cr_confirm', 0) == 0
 		inoremap <silent><buffer><expr> <cr> 
 					\ pumvisible()? "\<c-y>\<cr>" : "\<cr>"
-	else
-		inoremap <silent><buffer><expr> <cr> 
-					\ pumvisible()? "\<c-y>" : "\<cr>"
 	endif
 	inoremap <silent><buffer><expr> <bs> <SID>on_backspace()
 	let b:apc_init_bs = 1
@@ -146,7 +143,7 @@ function! s:apc_disable()
 	if get(b:, 'apc_init_bs', 0)
 		silent! iunmap <buffer><expr> <bs>
 	endif
-	if get(b:, 'apc_init_cr', 0)
+	if get(b:, 'apc_init_cr', 0) && get(g:, 'apc_cr_confirm', 0) == 0
 		silent! iunmap <buffer><expr> <cr>
 	endif
 	if get(b:, 'apc_save_infer', '') != ''
